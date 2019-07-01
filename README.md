@@ -41,7 +41,12 @@ python bucket_management.py <Cellar Host> <Cellar Key> <Cellar Secret Key> [opti
    example:
    
    `python bucket_management.py <Cellar Host> <Cellar Key> <Cellar Secret Key> --create-bucket <My Bucket Name> --force`
-
+    
+    This command will overwrite a potentially already existing bucket.  
+   
+   `python bucket_management.py <Cellar Host> <Cellar Key> <Cellar Secret Key> --create-bucket <My Bucket Name> --ignore`
+   
+   This command will try to create a new bucket but does nothing if a bucket already exist.
 
 Methods
 ---

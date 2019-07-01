@@ -36,6 +36,7 @@ python bucket_management.py <Cellar Host> <Cellar Key> <Cellar Secret Key> [opti
 * *--create-bucket:*
 
    Create a new bucket. Use `--force` to erase existing bucket.
+   `--ignore` allow you to skip errors.
    
    example:
    

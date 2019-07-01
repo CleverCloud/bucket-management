@@ -125,6 +125,8 @@ def ft_parse():
     parser.add_argument("--bucket-list", action="store_true", default=False, dest="bucket_list")
     parser.add_argument("--create-bucket", action="store", dest="create_bucket", default=None)
     parser.add_argument("--force", action="store_true", default=False, dest="force")
+    parser.add_argument("--ignore", action="store_true", default=False, dest="ignore")
+
     return parser.parse_args()
 
 
@@ -139,9 +141,11 @@ def main():
         if args.create_bucket in bucket_list:
             if args.force is True:
                 cellar_cli.delete_bucket(args.create_bucket, allow_full_bucket_deletion=True)
-            else:
+                cellar_cli.create_bucket(args.create_bucket)
+            elif not args.ignore:
                 raise Exception("Bucket [%s] already exist. Use --force to erase it." % args.create_bucket)
-        cellar_cli.create_bucket(args.create_bucket)
+        else:
+            cellar_cli.create_bucket(args.create_bucket)
 
 
 if __name__ == '__main__':

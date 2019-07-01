@@ -17,6 +17,31 @@ manager = ClBucketManagement(api_key,
 * `secret_key`: Secret Key to connect to your targeted S3 like 
 * `host` : Host of your targeted S3
 
+
+Command line tool
+---
+Bucket management can be use as a command line tool :
+
+**usage:**
+```
+python bucket_management.py <Cellar Host> <Cellar Key> <Cellar Secret Key> [options]
+```
+
+**available options :**
+
+* *--bucket-list* :
+
+   List all existing buckets
+
+* *--create-bucket:*
+
+   Create a new bucket. Use `--force` to erase existing bucket.
+   
+   example:
+   
+   `python bucket_management.py <Cellar Host> <Cellar Key> <Cellar Secret Key> --create-bucket <My Bucket Name> --force`
+
+
 Methods
 ---
 Available methods are :

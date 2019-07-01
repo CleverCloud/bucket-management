@@ -1,5 +1,6 @@
 import math
 import os
+import argparse
 
 from boto.s3.connection import OrdinaryCallingFormat
 from boto.s3.connection import S3Connection
@@ -114,3 +115,34 @@ class ClBucketManagement(object):
                 key.delete()
         self.conn.delete_bucket(bucket_name)
         del self.bucket_dict[bucket_name]
+
+
+def ft_parse():
+    parser = argparse.ArgumentParser(description="command line bucket management tool")
+    parser.add_argument("cellarHost", action="store")
+    parser.add_argument("cellarKey", action="store")
+    parser.add_argument("cellarKeySecret", action="store")
+    parser.add_argument("--bucket-list", action="store_true", default=False, dest="bucket_list")
+    parser.add_argument("--create-bucket", action="store", dest="create_bucket", default=None)
+    parser.add_argument("--force", action="store_true", default=False, dest="force")
+    return parser.parse_args()
+
+
+def main():
+    args = ft_parse()
+    cellar_cli = ClBucketManagement(api_key=args.cellarKey, secret_key=args.cellarKeySecret,
+                                    host=args.cellarHost)
+    if args.bucket_list:
+        print(cellar_cli.get_all_bucket())
+    elif args.create_bucket is not None:
+        bucket_list = cellar_cli.get_all_bucket()
+        if args.create_bucket in bucket_list:
+            if args.force is True:
+                cellar_cli.delete_bucket(args.create_bucket, allow_full_bucket_deletion=True)
+            else:
+                raise Exception("Bucket [%s] already exist. Use --force to erase it." % args.create_bucket)
+        cellar_cli.create_bucket(args.create_bucket)
+
+
+if __name__ == '__main__':
+    main()

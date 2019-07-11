@@ -48,6 +48,13 @@ python bucket_management.py <Cellar Host> <Cellar Key> <Cellar Secret Key> [opti
    
    This command will try to create a new bucket but does nothing if a bucket already exist.
 
+* *--delete-bucket:*
+
+   Delete bucket
+   
+   `python bucket_management.py <Cellar Host> <Cellar Key> <Cellar Secret Key> --delete-bucket <My Bucket Name> `
+   
+
 Methods
 ---
 Available methods are :

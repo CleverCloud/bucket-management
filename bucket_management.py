@@ -124,6 +124,7 @@ def ft_parse():
     parser.add_argument("cellarKeySecret", action="store")
     parser.add_argument("--bucket-list", action="store_true", default=False, dest="bucket_list")
     parser.add_argument("--create-bucket", action="store", dest="create_bucket", default=None)
+    parser.add_argument("--delete-bucket", action="store", dest="delete_bucket", default=None)
     parser.add_argument("--force", action="store_true", default=False, dest="force")
     parser.add_argument("--ignore", action="store_true", default=False, dest="ignore")
 
@@ -146,6 +147,10 @@ def main():
                 raise Exception("Bucket [%s] already exist. Use --force to erase it." % args.create_bucket)
         else:
             cellar_cli.create_bucket(args.create_bucket)
+    elif args.delete_bucket is not None:
+        bucket_list = cellar_cli.get_all_bucket()
+        if args.delete_bucket in bucket_list:
+            cellar_cli.delete_bucket(args.delete_bucket, allow_full_bucket_deletion=True)
 
 
 if __name__ == '__main__':
